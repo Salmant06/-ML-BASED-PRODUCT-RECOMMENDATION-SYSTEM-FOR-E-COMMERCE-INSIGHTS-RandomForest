@@ -33,4 +33,4 @@
 #python recommendation_system.py
 
 #Conclusion:
-#This recommendation system enhances the shopping experience by suggesting products that match the user's preferences, based on their specified category, rating, and price range. The system uses a machine learning model for prediction and can be deployed in real-time through a simple API, making it scalable and easy to integrate into an e-commerce platform.
+#This recommendation system enhances the shopping experience by suggesting products that match the user's preferences, based on their specified category, rating, and price range. The system uses a machine learning model for prediction and deployed in real-time through a simple API, making it scalable and easy to integrate into an e-commerce platform.
