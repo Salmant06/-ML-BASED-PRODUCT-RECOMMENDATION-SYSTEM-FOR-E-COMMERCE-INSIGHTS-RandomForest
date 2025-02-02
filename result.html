@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapora - Recommended Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .header-container {
+            background: #50c878;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .header {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .sub-header {
+            color: white;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .product-card {
+            width: 200px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .product-price {
+            font-size: 14px;
+            color: #ff6600;
+            font-weight: bold;
+        }
+        .product-discount-price {
+            font-size: 16px;
+            color: #008000;
+            font-weight: bold;
+        }
+        .product-actual-price {
+            font-size: 14px;
+            color: #808080;
+            text-decoration: line-through;
+        }
+        .product-rating {
+            font-size: 14px;
+            color: #ffd700;
+        }
+        .view-product {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="header">Snapora</div>
+        <div class="sub-header">Snap, Shop, Smile</div>
+    </div>
+    <div class="container">
+        <h2>Recommended Products</h2>
+        <div class="product-grid">
+            {% for index, row in products.iterrows() %}
+            <div class="product-card">
+                <img src="{{ row['image'] }}" alt="Product Image">
+                <div class="product-title">{{ row['products'] }}</div>
+                <div class="product-rating">Rating: {{ row['ratings'] }} ⭐</div>
+                <div class="product-discount-price">₹{{ row['discount_price'] }}</div>
+                <div class="product-actual-price">₹{{ row['actual_price'] }}</div>
+                <a href="{{ row['link'] }}" class="view-product" target="_blank">View Product</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

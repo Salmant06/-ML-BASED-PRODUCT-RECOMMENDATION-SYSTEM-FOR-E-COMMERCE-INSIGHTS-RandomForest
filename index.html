@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapora - Your Product Recommendation Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .emerald-green-container {
+            background-color: #2ecc71; /* Restoring Emerald Green */
+        }
+        .emerald-green-text {
+            color: #2ecc71;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header>
+        <div class="emerald-green-container text-white py-4">
+            <div class="container mx-auto text-center">
+                <h1 class="text-3xl font-bold">Snapora</h1>
+                <p class="text-sm italic">Snap, Shop, Smile</p>
+            </div>
+        </div>
+        <div class="bg-white py-4 shadow-md">
+            <div class="container mx-auto flex justify-start space-x-6 pl-4"> <!-- Adjusted here -->
+                <nav class="flex space-x-6">
+                    <a href="#" class="emerald-green-text hover:underline">Home</a>
+                    <a href="#" class="emerald-green-text hover:underline">Products</a>
+                    <a href="#" class="emerald-green-text hover:underline">About</a>
+                    <a href="#" class="emerald-green-text hover:underline">Contact</a>
+                </nav>
+            </div>
+            <div class="flex justify-end space-x-6 pr-4"> <!-- Adjusted here -->
+                <a href="#" class="emerald-green-text hover:underline">Wishlist</a>
+                <a href="#" class="emerald-green-text hover:underline">Bag</a>
+            </div>
+        </div>
+    </header>
+    <div class="search-container bg-white border border-gray-300 shadow-md rounded-lg p-4 mt-6 w-3/4 mx-auto">
+        <form action="/recommend" method="POST" class="flex flex-col md:flex-row items-center gap-4">
+            <input type="text" id="product_category" name="product_category" class="w-full md:w-2/3 p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Enter Product Category (e.g., jeans)" required>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Get Recommended Products</button>
+        </form>
+    </div>
+    <main class="container mx-auto py-8 px-6">
+        <section class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <!-- Sorting and Filtering -->
+            <div class="mb-6">
+                <form action="/filter" method="POST" class="flex flex-col md:flex-row items-center gap-4">
+                    <input type="hidden" id="product_category" name="product_category" value="{{ product_category }}">
+                    <div class="flex-1">
+                        <label for="min_rating" class="block text-gray-700 font-medium mb-2">Minimum Rating:</label>
+                        <input type="number" id="min_rating" name="min_rating" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 4.0" step="0.1" min="0" max="5">
+                    </div>
+                    <div class="flex-1">
+                        <label for="max_price" class="block text-gray-700 font-medium mb-2">Maximum Price:</label>
+                        <input type="number" id="max_price" name="max_price" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 5000" min="0">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Sort By:</label>
+                        <select name="sort_by" class="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="rating">Rating</option>
+                            <option value="price">Price</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mt-4 md:mt-0">Apply Filters</button>
+                </form>
+            </div>
+            <!-- Recommended Products -->
+            <h2 class="text-xl font-semibold mt-8">Recommended Products</h2>
+            {% if products %}
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {% for product in products %}
+                        <div class="border rounded-lg shadow-md p-4 hover:shadow-lg">
+                            <img src="{{ product['image'] }}" alt="{{ product['products'] }}" class="w-full h-40 object-cover mb-2">
+                            <h3 class="text-md font-semibold">{{ product['products'] }}</h3>
+                            <p class="text-gray-600">Rating: {{ product['ratings'] }} ⭐</p>
+                            <p class="text-green-600 text-lg font-bold">&#8377; {{ product['discount_price'] }}</p>
+                            <p class="text-gray-500 line-through">&#8377; {{ product['actual_price'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500 text-center mt-6">No products to display. Start by searching for a category.</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Snapora. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
